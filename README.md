@@ -27,17 +27,3 @@ Arrays & Strings
 Pointers
 
 Structures
-
-
-💻 How to Run the Programs
-
-1. Install a C compiler (GCC / MinGW / Code::Blocks).
-
-
-2. Clone this repository:
-
-git clone https://github.com/<your-username>/C-Programming-Basics.git
-
-
-3. Open a file and compile it:
-4. 

@@ -1,0 +1,55 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+struct Student {
+    int id;
+    char name[50];
+    float marks;
+};
+
+void addStudent(struct Student s, FILE *fp) {
+    fwrite(&s, sizeof(struct Student), 1, fp);
+}
+
+void displayStudents(FILE *fp) {
+    struct Student s;
+    rewind(fp);
+    printf("\n--- Student Records ---\n");
+    while (fread(&s, sizeof(struct Student), 1, fp)) {
+        printf("ID: %d | Name: %s | Marks: %.2f\n", s.id, s.name, s.marks);
+    }
+}
+
+int main() {
+    FILE *fp = fopen("students.dat", "ab+");
+    if (!fp) {
+        printf("Error opening file!");
+        return 1;
+    }
+
+    int choice;
+    struct Student s;
+
+    do {
+        printf("\n1. Add Student\n2. Display Students\n3. Exit\nEnter choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1:
+                printf("Enter ID: "); scanf("%d", &s.id);
+                printf("Enter Name: "); scanf("%s", s.name);
+                printf("Enter Marks: "); scanf("%f", &s.marks);
+                addStudent(s, fp);
+                break;
+            case 2:
+                displayStudents(fp);
+                break;
+            case 3:
+                fclose(fp);
+                exit(0);
+        }
+    } while (1);
+
+    return 0;
+}

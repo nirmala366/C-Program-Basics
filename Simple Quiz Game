@@ -1,0 +1,38 @@
+#include <stdio.h>
+
+int main() {
+    char questions[3][100] = {
+        "What is the capital of India?",
+        "Which language is used in system programming?",
+        "What is 5 * 6?"
+    };
+
+    char options[3][4][50] = {
+        {"1. Delhi", "2. Mumbai", "3. Kolkata", "4. Chennai"},
+        {"1. Python", "2. C", "3. Java", "4. Ruby"},
+        {"1. 20", "2. 25", "3. 30", "4. 35"}
+    };
+
+    int answers[3] = {1, 2, 3};
+    int userAnswer, score = 0;
+
+    printf("\n--- Quiz Game ---\n");
+    for (int i = 0; i < 3; i++) {
+        printf("\nQ%d: %s\n", i+1, questions[i]);
+        for (int j = 0; j < 4; j++) {
+            printf("%s\n", options[i][j]);
+        }
+        printf("Your answer: ");
+        scanf("%d", &userAnswer);
+
+        if (userAnswer == answers[i]) {
+            printf("Correct!\n");
+            score++;
+        } else {
+            printf("Wrong! Correct answer is option %d.\n", answers[i]);
+        }
+    }
+
+    printf("\nFinal Score: %d/3\n", score);
+    return 0;
+}

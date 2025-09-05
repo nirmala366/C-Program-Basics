@@ -1,0 +1,55 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+struct Book {
+    int id;
+    char title[50];
+    char author[50];
+};
+
+void addBook(struct Book b, FILE *fp) {
+    fwrite(&b, sizeof(struct Book), 1, fp);
+}
+
+void displayBooks(FILE *fp) {
+    struct Book b;
+    rewind(fp);
+    printf("\n--- Library Books ---\n");
+    while (fread(&b, sizeof(struct Book), 1, fp)) {
+        printf("ID: %d | Title: %s | Author: %s\n", b.id, b.title, b.author);
+    }
+}
+
+int main() {
+    FILE *fp = fopen("library.dat", "ab+");
+    if (!fp) {
+        printf("Error opening file!");
+        return 1;
+    }
+
+    int choice;
+    struct Book b;
+
+    do {
+        printf("\n1. Add Book\n2. Display Books\n3. Exit\nEnter choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1:
+                printf("Enter ID: "); scanf("%d", &b.id);
+                printf("Enter Title: "); scanf("%s", b.title);
+                printf("Enter Author: "); scanf("%s", b.author);
+                addBook(b, fp);
+                break;
+            case 2:
+                displayBooks(fp);
+                break;
+            case 3:
+                fclose(fp);
+                exit(0);
+        }
+    } while (1);
+
+    return 0;
+}

@@ -1,0 +1,20 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+int main() {
+    int dice, choice;
+    srand(time(0));
+
+    do {
+        printf("\nPress 1 to roll dice, 0 to exit: ");
+        scanf("%d", &choice);
+
+        if (choice == 1) {
+            dice = (rand() % 6) + 1;
+            printf("🎲 You rolled: %d\n", dice);
+        }
+    } while (choice != 0);
+
+    return 0;
+}
